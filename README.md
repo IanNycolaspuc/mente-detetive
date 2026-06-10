@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.svg" alt="Logo Mente Detetive" width="160"/>
+  <img src="assets/logo-mente-detetive.jpg.jpg" alt="Logo Mente Detetive" width="160"/>
 
 # 🕵️ Mente Detetive
 
@@ -42,7 +42,7 @@
 * 🧩 **Diagramas PlantUML:** [`docs/plantuml`](docs/plantuml)
 * 🗄️ **Modelo SQL:** [`docs/database/schema.sql`](docs/database/schema.sql)
 * 📘 **Resumo da API:** [`docs/api/openapi-resumo.md`](docs/api/openapi-resumo.md)
-* 🗃️ **Repositório GitHub:** `<URL_DO_REPOSITORIO>`
+* 🗃️ **Repositório GitHub:** `[<URL_DO_REPOSITORIO>](https://github.com/IanNycolaspuc/mente-detetive)`
 
 ---
 
