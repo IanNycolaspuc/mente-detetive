@@ -250,7 +250,7 @@ java -jar target/mente-detetive-api-1.0.0.jar
 ```text
 .
 ├── assets/
-│   └── logo.svg
+│   └── logo-mente-detetive.jpg.jpg
 ├── docs/
 │   ├── api/
 │   │   └── openapi-resumo.md
