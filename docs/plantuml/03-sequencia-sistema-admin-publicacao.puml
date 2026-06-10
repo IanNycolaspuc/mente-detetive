@@ -1,0 +1,14 @@
+@startuml
+title SSD - UC-12 Publicar Jogo Digital
+actor Administrador as Admin
+boundary "Sistema Mente Detetive" as Sistema
+
+Admin -> Sistema : autenticar(email, senha)
+Sistema --> Admin : sessãoAdminAutenticada
+Admin -> Sistema : cadastrarJogo(título, descrição, preço, categoria)
+Sistema --> Admin : rascunhoCriado(jogoId)
+Admin -> Sistema : enviarArquivoPDF(jogoId, arquivo)
+Sistema --> Admin : arquivoValidado
+Admin -> Sistema : publicarJogo(jogoId)
+Sistema --> Admin : jogoPublicadoNoCatálogo
+@enduml

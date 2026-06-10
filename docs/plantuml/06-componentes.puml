@@ -1,0 +1,65 @@
+@startuml
+title Mente Detetive - Diagrama de Componentes
+skinparam componentStyle rectangle
+
+package "Front-end React" {
+  [Página de Catálogo] as CatalogPage
+  [Página de Checkout] as CheckoutPage
+  [Biblioteca do Cliente] as LibraryPage
+  [Painel Admin] as AdminPage
+  [API Client] as ApiClient
+}
+
+package "Back-end Spring Boot" {
+  [AuthController] as AuthController
+  [CatalogController] as CatalogController
+  [OrderController] as OrderController
+  [DownloadController] as DownloadController
+  [AdminController] as AdminController
+
+  [AuthService] as AuthService
+  [CatalogService] as CatalogService
+  [OrderService] as OrderService
+  [PaymentService] as PaymentService
+  [DownloadService] as DownloadService
+  [NotificationService] as NotificationService
+  [GameRepository] as GameRepo
+  [OrderRepository] as OrderRepo
+  [UserRepository] as UserRepo
+}
+
+database "PostgreSQL" as DB
+folder "Storage PDFs" as Storage
+cloud "Gateway de Pagamento" as Gateway
+cloud "E-mail SMTP/API" as SMTP
+
+CatalogPage --> ApiClient
+CheckoutPage --> ApiClient
+LibraryPage --> ApiClient
+AdminPage --> ApiClient
+ApiClient --> AuthController
+ApiClient --> CatalogController
+ApiClient --> OrderController
+ApiClient --> DownloadController
+ApiClient --> AdminController
+
+AuthController --> AuthService
+CatalogController --> CatalogService
+OrderController --> OrderService
+DownloadController --> DownloadService
+AdminController --> CatalogService
+AdminController --> DownloadService
+
+CatalogService --> GameRepo
+OrderService --> OrderRepo
+OrderService --> PaymentService
+OrderService --> NotificationService
+AuthService --> UserRepo
+DownloadService --> OrderRepo
+DownloadService --> Storage
+PaymentService --> Gateway
+NotificationService --> SMTP
+GameRepo --> DB
+OrderRepo --> DB
+UserRepo --> DB
+@enduml

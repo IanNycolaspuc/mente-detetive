@@ -1,0 +1,11 @@
+@startuml
+title Diagrama de Estados - Jogo Digital
+[*] --> Rascunho
+Rascunho --> EmRevisao : administrador envia dados e PDF
+EmRevisao --> Publicado : validação aprovada
+EmRevisao --> Rascunho : correção solicitada
+Publicado --> Inativo : removido temporariamente do catálogo
+Inativo --> Publicado : republicado
+Publicado --> Arquivado : produto descontinuado
+Arquivado --> [*]
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam usecase {
+  BackgroundColor #F7F7F7
+  BorderColor #333333
+}
+
+title Mente Detetive - Diagrama de Casos de Uso
+
+actor "Visitante" as Visitante
+actor "Cliente" as Cliente
+actor "Administrador" as Admin
+actor "Gateway de Pagamento" as Gateway
+actor "Serviço de E-mail" as Email
+
+rectangle "Sistema Mente Detetive" {
+  usecase "UC-01\nCadastrar conta" as UC01
+  usecase "UC-02\nAutenticar usuário" as UC02
+  usecase "UC-03\nConsultar catálogo" as UC03
+  usecase "UC-04\nVisualizar detalhes do jogo" as UC04
+  usecase "UC-05\nAdicionar jogo ao carrinho" as UC05
+  usecase "UC-06\nFinalizar pedido" as UC06
+  usecase "UC-07\nProcessar pagamento" as UC07
+  usecase "UC-08\nLiberar download do PDF" as UC08
+  usecase "UC-09\nBaixar jogo adquirido" as UC09
+  usecase "UC-10\nConsultar biblioteca pessoal" as UC10
+  usecase "UC-11\nAvaliar jogo" as UC11
+  usecase "UC-12\nGerenciar jogos digitais" as UC12
+  usecase "UC-13\nCadastrar/editar categorias" as UC13
+  usecase "UC-14\nConsultar relatórios de venda" as UC14
+  usecase "UC-15\nEnviar notificações" as UC15
+}
+
+Visitante --> UC01
+Visitante --> UC02
+Visitante --> UC03
+Visitante --> UC04
+Cliente --> UC03
+Cliente --> UC04
+Cliente --> UC05
+Cliente --> UC06
+Cliente --> UC09
+Cliente --> UC10
+Cliente --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Gateway --> UC07
+Email --> UC15
+
+UC06 ..> UC07 : <<include>>
+UC07 ..> UC08 : <<include>>
+UC08 ..> UC15 : <<include>>
+UC09 ..> UC10 : <<include>>
+UC12 ..> UC13 : <<extend>>
+@enduml

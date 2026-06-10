@@ -1,0 +1,32 @@
+@startuml
+title Mente Detetive - Visão de Arquitetura em Containers
+skinparam rectangle {
+  RoundCorner 12
+  Shadowing false
+}
+
+actor "Cliente" as Cliente
+actor "Administrador" as Admin
+cloud "Internet" as Internet
+
+rectangle "Mente Detetive" {
+  rectangle "Web App\nReact + TypeScript + Vite" as Front
+  rectangle "API REST\nJava 17 + Spring Boot" as API
+  database "PostgreSQL\nDados transacionais" as DB
+  folder "Storage de PDFs\nArquivos digitais" as Storage
+}
+
+rectangle "Serviços externos" {
+  rectangle "Gateway de Pagamento" as Payment
+  rectangle "Serviço de E-mail" as Mail
+}
+
+Cliente --> Internet
+Admin --> Internet
+Internet --> Front : HTTPS
+Front --> API : JSON/HTTPS
+API --> DB : JPA/Hibernate
+API --> Storage : upload/download seguro
+API --> Payment : autorização/captura
+API --> Mail : confirmação e recibos
+@enduml

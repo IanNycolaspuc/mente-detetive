@@ -1,0 +1,34 @@
+@startuml
+title Mente Detetive - Diagrama de Implantação
+node "Navegador do Usuário" as Browser {
+  artifact "SPA React" as SPA
+}
+
+node "Vercel / CDN" as CDN {
+  artifact "build frontend /dist" as Dist
+}
+
+node "Servidor de Aplicação" as AppServer {
+  artifact "mente-detetive-api.jar" as Jar
+  node "Docker Container API" as ApiContainer
+}
+
+node "Banco Gerenciado" as DbServer {
+  database "PostgreSQL 16" as PostgreSQL
+}
+
+node "Storage Privado" as StorageNode {
+  artifact "Arquivos PDF" as PDFStore
+}
+
+cloud "Gateway de Pagamento" as Payment
+cloud "Servidor de E-mail" as Email
+
+Browser --> CDN : HTTPS
+CDN --> AppServer : HTTPS /api
+ApiContainer --> Jar
+Jar --> PostgreSQL : JDBC/TLS
+Jar --> PDFStore : URLs assinadas
+Jar --> Payment : API HTTPS
+Jar --> Email : SMTP/API
+@enduml

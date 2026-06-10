@@ -1,0 +1,14 @@
+@startuml
+title SSD - UC-09 Baixar PDF Adquirido
+actor Cliente
+boundary "Sistema Mente Detetive" as Sistema
+
+Cliente -> Sistema : acessarBibliotecaPessoal()
+Sistema --> Cliente : jogosComprados
+Cliente -> Sistema : solicitarDownload(jogoId)
+Sistema -> Sistema : validarTitularidade(clienteId, jogoId)
+Sistema -> Sistema : gerarLinkTemporario(jogoId)
+Sistema --> Cliente : linkDownloadTemporario
+Cliente -> Sistema : baixarArquivo(link)
+Sistema --> Cliente : PDF do jogo de investigação
+@enduml

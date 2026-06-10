@@ -1,0 +1,23 @@
+@startuml
+title Diagrama de Comunicação - Finalizar Pedido
+object Cliente
+object CheckoutPage
+object OrderController
+object OrderService
+object PaymentService
+object OrderRepository
+object Gateway
+
+Cliente --> CheckoutPage : 1: confirmarCompra()
+CheckoutPage --> OrderController : 2: checkout(carrinho, forma)
+OrderController --> OrderService : 3: finalizarPedido()
+OrderService --> OrderRepository : 4: criarPedido()
+OrderService --> PaymentService : 5: processarPagamento()
+PaymentService --> Gateway : 6: criarTransacao()
+Gateway --> PaymentService : 7: retornoAprovado()
+PaymentService --> OrderService : 8: pagamentoAprovado()
+OrderService --> OrderRepository : 9: liberarLicencas()
+OrderService --> OrderController : 10: pedidoConfirmado()
+OrderController --> CheckoutPage : 11: respostaHTTP()
+CheckoutPage --> Cliente : 12: exibirConfirmação()
+@enduml

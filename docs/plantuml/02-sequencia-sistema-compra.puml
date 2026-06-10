@@ -1,0 +1,19 @@
+@startuml
+title SSD - UC-06 Finalizar Pedido e Comprar PDF
+actor Cliente
+boundary "Sistema Mente Detetive" as Sistema
+actor "Gateway de Pagamento" as Gateway
+
+Cliente -> Sistema : autenticar(email, senha)
+Sistema --> Cliente : sessãoAutenticada
+Cliente -> Sistema : consultarCatalogo(filtros)
+Sistema --> Cliente : listaJogosPDF
+Cliente -> Sistema : adicionarAoCarrinho(jogoId)
+Sistema --> Cliente : carrinhoAtualizado
+Cliente -> Sistema : finalizarPedido(carrinhoId, formaPagamento)
+Sistema -> Gateway : solicitarPagamento(valor, dadosPedido)
+Gateway --> Sistema : pagamentoAprovado(transacaoId)
+Sistema --> Cliente : pedidoConfirmado + acessoLiberado
+Cliente -> Sistema : baixarPDF(jogoId)
+Sistema --> Cliente : arquivoPDF
+@enduml

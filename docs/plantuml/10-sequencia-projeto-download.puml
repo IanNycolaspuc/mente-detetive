@@ -1,0 +1,24 @@
+@startuml
+title Diagrama de Sequência de Projeto - Download Seguro
+actor Cliente
+boundary LibraryPage
+control DownloadController
+control DownloadService
+entity OrderRepository
+entity DownloadTokenService
+folder "PDF Storage" as Storage
+
+Cliente -> LibraryPage : clicarBaixar(jogoId)
+LibraryPage -> DownloadController : GET /downloads/{jogoId}
+DownloadController -> DownloadService : solicitarDownload(clienteId, jogoId)
+DownloadService -> OrderRepository : verificarLicencaAtiva(clienteId, jogoId)
+OrderRepository --> DownloadService : licença válida
+DownloadService -> DownloadTokenService : gerarTokenTemporario(jogoId, clienteId)
+DownloadTokenService --> DownloadService : token + expiração
+DownloadService -> Storage : gerarUrlAssinada(token)
+Storage --> DownloadService : urlTemporaria
+DownloadService -> OrderRepository : registrarTentativaDownload()
+DownloadService --> DownloadController : urlTemporaria
+DownloadController --> LibraryPage : 200 OK + url
+LibraryPage --> Cliente : iniciarDownloadPDF
+@enduml

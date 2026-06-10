@@ -1,0 +1,33 @@
+@startuml
+title Diagrama de Sequência de Projeto - Checkout
+actor Cliente
+boundary CheckoutPage
+control OrderController
+control OrderService
+control PaymentService
+control NotificationService
+entity OrderRepository
+entity GameRepository
+collections "PostgreSQL" as DB
+cloud "Gateway" as Gateway
+
+Cliente -> CheckoutPage : clicarFinalizarCompra()
+CheckoutPage -> OrderController : POST /orders/checkout
+OrderController -> OrderService : finalizarPedido(clienteId, carrinhoId, forma)
+OrderService -> GameRepository : buscarItensDoCarrinho(carrinhoId)
+GameRepository -> DB : SELECT jogos/itens
+DB --> GameRepository : itens
+GameRepository --> OrderService : itensCarrinho
+OrderService -> OrderRepository : salvarPedido(status=AGUARDANDO_PAGAMENTO)
+OrderRepository -> DB : INSERT pedido
+OrderService -> PaymentService : autorizarPagamento(pedido)
+PaymentService -> Gateway : criarTransacao(valor)
+Gateway --> PaymentService : aprovado(transacaoId)
+PaymentService --> OrderService : pagamentoAprovado
+OrderService -> OrderRepository : atualizarStatus(PAGO)
+OrderService -> OrderRepository : criarLicencasDownload()
+OrderService -> NotificationService : enviarConfirmacao(pedido)
+OrderService --> OrderController : pedidoConfirmado
+OrderController --> CheckoutPage : 201 Created + pedido
+CheckoutPage --> Cliente : exibirConfirmação
+@enduml

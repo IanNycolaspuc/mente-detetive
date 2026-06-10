@@ -1,0 +1,31 @@
+@startuml
+title Diagrama de Sequência de Projeto - Publicação de Jogo
+actor Administrador as Admin
+boundary AdminPage
+control AdminController
+control CatalogService
+control FileValidationService
+entity GameRepository
+folder "PDF Storage" as Storage
+collections "PostgreSQL" as DB
+
+Admin -> AdminPage : preencherDadosDoJogo()
+AdminPage -> AdminController : POST /admin/games
+AdminController -> CatalogService : criarRascunho(dto)
+CatalogService -> GameRepository : save(jogo RASCUNHO)
+GameRepository -> DB : INSERT jogo
+DB --> GameRepository : id
+GameRepository --> CatalogService : jogo
+CatalogService --> AdminController : jogoCriado
+AdminController --> AdminPage : 201 Created
+Admin -> AdminPage : enviarPDF()
+AdminPage -> AdminController : POST /admin/games/{id}/file
+AdminController -> FileValidationService : validarPDF(arquivo)
+FileValidationService --> AdminController : arquivoValido
+AdminController -> Storage : armazenarArquivoPDF
+Storage --> AdminController : caminhoStorage
+AdminController -> CatalogService : vincularArquivo(id, caminho)
+CatalogService -> GameRepository : atualizarArquivoEStatus(PUBLICADO)
+GameRepository -> DB : UPDATE jogo
+AdminController --> AdminPage : jogoPublicado
+@enduml

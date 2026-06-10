@@ -1,0 +1,106 @@
+@startuml
+title Mente Detetive - Modelo de Dados / DER
+hide circle
+skinparam linetype ortho
+
+entity "usuarios" as usuarios {
+  * id : uuid <<PK>>
+  --
+  nome : varchar(120)
+  email : varchar(160) <<UK>>
+  senha_hash : varchar(255)
+  perfil : varchar(20)
+  status : varchar(20)
+  criado_em : timestamp
+}
+
+entity "categorias" as categorias {
+  * id : uuid <<PK>>
+  --
+  nome : varchar(80)
+  descricao : text
+}
+
+entity "jogos_digitais" as jogos {
+  * id : uuid <<PK>>
+  --
+  categoria_id : uuid <<FK>>
+  titulo : varchar(160)
+  descricao : text
+  preco : decimal(10,2)
+  faixa_etaria : varchar(10)
+  duracao_minutos : int
+  quantidade_jogadores : int
+  status : varchar(20)
+}
+
+entity "arquivos_pdf" as arquivos {
+  * id : uuid <<PK>>
+  --
+  jogo_id : uuid <<FK>>
+  nome_arquivo : varchar(180)
+  caminho_storage : varchar(255)
+  tamanho_bytes : bigint
+  checksum : varchar(128)
+}
+
+entity "pedidos" as pedidos {
+  * id : uuid <<PK>>
+  --
+  cliente_id : uuid <<FK>>
+  codigo : varchar(30)
+  valor_total : decimal(10,2)
+  status : varchar(30)
+  criado_em : timestamp
+}
+
+entity "itens_pedido" as itens {
+  * id : uuid <<PK>>
+  --
+  pedido_id : uuid <<FK>>
+  jogo_id : uuid <<FK>>
+  preco_pago : decimal(10,2)
+}
+
+entity "pagamentos" as pagamentos {
+  * id : uuid <<PK>>
+  --
+  pedido_id : uuid <<FK>>
+  transacao_id : varchar(120)
+  forma : varchar(30)
+  status : varchar(30)
+  valor : decimal(10,2)
+}
+
+entity "licencas_download" as licencas {
+  * id : uuid <<PK>>
+  --
+  pedido_id : uuid <<FK>>
+  jogo_id : uuid <<FK>>
+  liberada_em : timestamp
+  limite_downloads : int
+  downloads_realizados : int
+  ativa : boolean
+}
+
+entity "avaliacoes" as avaliacoes {
+  * id : uuid <<PK>>
+  --
+  cliente_id : uuid <<FK>>
+  jogo_id : uuid <<FK>>
+  nota : int
+  comentario : text
+  criada_em : timestamp
+}
+
+categorias ||--o{ jogos
+jogos ||--|| arquivos
+usuarios ||--o{ pedidos
+pedidos ||--o{ itens
+jogos ||--o{ itens
+pedidos ||--o| pagamentos
+pedidos ||--o{ licencas
+jogos ||--o{ licencas
+usuarios ||--o{ avaliacoes
+jogos ||--o{ avaliacoes
+@enduml

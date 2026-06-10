@@ -1,0 +1,15 @@
+@startuml
+title Diagrama de Estados - Pedido
+[*] --> Criado
+Criado --> AguardandoPagamento : checkout iniciado
+AguardandoPagamento --> Pago : pagamento aprovado
+AguardandoPagamento --> Cancelado : cliente cancela
+AguardandoPagamento --> Expirado : prazo de pagamento excedido
+Pago --> DownloadLiberado : licenças geradas
+DownloadLiberado --> Concluido : cliente realiza download
+Pago --> Estornado : solicitação de estorno aprovada
+Cancelado --> [*]
+Expirado --> [*]
+Concluido --> [*]
+Estornado --> [*]
+@enduml
