@@ -37,7 +37,7 @@
 
 ## 🔗 Links Úteis
 
-* 🌐 **Demo Online:** `<link-da-demo-web>`
+* 🌐 **Demo Online:** Não aplicável — projeto acadêmico focado em documentação, arquitetura e modelagem UML.
 * 📖 **Documentação do Projeto:** [`docs/documentacao-projeto-mente-detetive.docx`](docs/documentacao-projeto-mente-detetive.docx)
 * 🧩 **Diagramas PlantUML:** [`docs/plantuml`](docs/plantuml)
 * 🗄️ **Modelo SQL:** [`docs/database/schema.sql`](docs/database/schema.sql)
