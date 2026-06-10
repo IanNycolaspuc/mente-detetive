@@ -42,7 +42,7 @@
 * 🧩 **Diagramas PlantUML:** [`docs/plantuml`](docs/plantuml)
 * 🗄️ **Modelo SQL:** [`docs/database/schema.sql`](docs/database/schema.sql)
 * 📘 **Resumo da API:** [`docs/api/openapi-resumo.md`](docs/api/openapi-resumo.md)
-* 🗃️ **Repositório GitHub:** `(https://github.com/IanNycolaspuc/mente-detetive)`
+* 🧰 **Repositório GitHub:** [Acesse o repositório](https://github.com/IanNycolaspuc/mente-detetive)
 
 ---
 
