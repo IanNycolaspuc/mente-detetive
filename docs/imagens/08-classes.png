@@ -1,0 +1,121 @@
+@startuml
+title Mente Detetive - Diagrama de Classes
+skinparam classAttributeIconSize 0
+
+class Usuario {
+  +UUID id
+  +String nome
+  +String email
+  +String senhaHash
+  +Perfil perfil
+  +StatusUsuario status
+  +LocalDateTime criadoEm
+}
+
+enum Perfil { CLIENTE; ADMIN }
+enum StatusUsuario { ATIVO; BLOQUEADO }
+
+class Cliente {
+  +String cpf
+  +String telefone
+}
+
+class Administrador {
+  +String matriculaInterna
+}
+
+class JogoDigital {
+  +UUID id
+  +String titulo
+  +String descricao
+  +BigDecimal preco
+  +String faixaEtaria
+  +Integer duracaoMinutos
+  +Integer quantidadeJogadores
+  +StatusJogo status
+}
+
+enum StatusJogo { RASCUNHO; PUBLICADO; INATIVO }
+
+class Categoria {
+  +UUID id
+  +String nome
+  +String descricao
+}
+
+class ArquivoPDF {
+  +UUID id
+  +String nomeArquivo
+  +String caminhoStorage
+  +Long tamanhoBytes
+  +String checksum
+}
+
+class Carrinho {
+  +UUID id
+  +BigDecimal total
+  +LocalDateTime atualizadoEm
+}
+
+class ItemCarrinho {
+  +UUID id
+  +BigDecimal precoUnitario
+}
+
+class Pedido {
+  +UUID id
+  +String codigo
+  +BigDecimal valorTotal
+  +StatusPedido status
+  +LocalDateTime criadoEm
+}
+
+enum StatusPedido { CRIADO; AGUARDANDO_PAGAMENTO; PAGO; CANCELADO; EXPIRADO }
+
+class ItemPedido {
+  +UUID id
+  +BigDecimal precoPago
+}
+
+class Pagamento {
+  +UUID id
+  +String transacaoId
+  +FormaPagamento forma
+  +StatusPagamento status
+  +BigDecimal valor
+}
+
+enum FormaPagamento { PIX; CARTAO_CREDITO; BOLETO }
+enum StatusPagamento { PENDENTE; APROVADO; RECUSADO; ESTORNADO }
+
+class LicencaDownload {
+  +UUID id
+  +LocalDateTime liberadaEm
+  +Integer limiteDownloads
+  +Integer downloadsRealizados
+  +Boolean ativa
+}
+
+class Avaliacao {
+  +UUID id
+  +Integer nota
+  +String comentario
+  +LocalDateTime criadaEm
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Administrador
+JogoDigital "1" -- "1" ArquivoPDF
+Categoria "1" -- "0..*" JogoDigital
+Cliente "1" -- "0..1" Carrinho
+Carrinho "1" -- "1..*" ItemCarrinho
+ItemCarrinho "1" -- "1" JogoDigital
+Cliente "1" -- "0..*" Pedido
+Pedido "1" -- "1..*" ItemPedido
+ItemPedido "1" -- "1" JogoDigital
+Pedido "1" -- "0..1" Pagamento
+Pedido "1" -- "0..*" LicencaDownload
+LicencaDownload "1" -- "1" JogoDigital
+Cliente "1" -- "0..*" Avaliacao
+Avaliacao "1" -- "1" JogoDigital
+@enduml
