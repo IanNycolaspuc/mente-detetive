@@ -330,6 +330,44 @@ npm run test:e2e
 
 ---
 
+# Diagramas UML
+
+Os diagramas do sistema foram desenvolvidos utilizando PlantUML. Os arquivos-fonte (.puml) estão disponíveis em `docs/plantuml/` e as imagens renderizadas em `docs/imagens/`.
+
+## Diagrama de Casos de Uso
+
+![Diagrama de Casos de Uso](docs/imagens/01-casos-de-uso.png)
+
+---
+
+## Arquitetura do Sistema
+
+![Arquitetura](docs/imagens/05-arquitetura-c4-container.png)
+
+---
+
+## Diagrama de Componentes
+
+![Componentes](docs/imagens/06-componentes.png)
+
+---
+
+## Diagrama de Classes
+
+![Diagrama de Classes](docs/imagens/08-classes.png)
+
+---
+
+## Diagrama de Comunicação
+
+![Diagrama de Comunicação](docs/imagens/12-comunicacao-checkout.png)
+
+---
+
+## Modelo de Dados (DER)
+
+![Modelo de Dados](docs/imagens/15-modelo-dados-der.png)
+
 ## 📄 Licença
 
 Este projeto é distribuído sob a Licença MIT. Consulte o arquivo [`LICENSE`](LICENSE).
